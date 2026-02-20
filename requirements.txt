@@ -1,0 +1,24 @@
+# Core Framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Database
+sqlalchemy
+psycopg[binary]
+
+# Embeddings (HuggingFace)
+sentence-transformers
+numpy
+
+# RAG & LLM
+langchain
+groq
+
+# Config & Validation
+pydantic
+pydantic-settings
+python-dotenv
+
+# Utilities
+requests
