@@ -1,7 +1,6 @@
 # Core Framework
 fastapi
 uvicorn[standard]
-python-multipart
 
 # Database
 sqlalchemy
@@ -12,7 +11,6 @@ sentence-transformers
 numpy
 
 # RAG & LLM
-langchain
 groq
 
 # Config & Validation

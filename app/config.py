@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL", 
-        "postgresql://postgres:Anshul%4012@localhost:5432/location_safety"
+        "postgresql://postgres:password@localhost:5432/location_safety"
     )
     
     # Embeddings
