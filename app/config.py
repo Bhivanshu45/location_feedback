@@ -1,6 +1,9 @@
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Settings(BaseSettings):
     # App
@@ -38,14 +41,17 @@ class Settings(BaseSettings):
             raise ValueError(
                 "❌ GROQ_API_KEY not set! Get free key from https://console.groq.com"
             )
-        if not self.GROQ_API_KEY.startswith("gsk_"):
-            raise ValueError("❌ Invalid Groq API key format (should start with gsk_)")
         return True
 
 @lru_cache()
 def get_settings():
     settings = Settings()
-    # Validate Groq key on startup
-    if settings.ENVIRONMENT == "production" or not settings.DEBUG:
-        settings.validate_groq_key()
+    # Only validate in production if explicitly needed
+    # Render sets env vars after startup sometimes
+    try:
+        if settings.ENVIRONMENT == "production":
+            if not settings.GROQ_API_KEY:
+                raise ValueError("GROQ_API_KEY required in production")
+    except ValueError as e:
+        logger.warning(f"Config warning: {e}")
     return settings
